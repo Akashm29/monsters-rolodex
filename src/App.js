@@ -9,6 +9,7 @@ export class App extends Component {
     this.state = {
       monsters: [],
       searchField: "",
+      loading: true,
     };
   }
 
@@ -20,6 +21,7 @@ export class App extends Component {
       .then((monsters) => {
         this.setState({
           monsters,
+          loading: false,
         });
       });
   };
@@ -32,20 +34,26 @@ export class App extends Component {
   };
 
   render() {
-    const { monsters, searchField } = this.state;
+    const { monsters, searchField, loading } = this.state;
     let filteredMonsters = monsters.filter((monster) => {
       return monster.name.toLocaleLowerCase().includes(searchField);
     });
     return (
       <div>
         <h1 className="app-title">Monster Rolodex</h1>
-        <SearchBox
-          className={"monster-search-box"}
-          searchField={searchField}
-          placeholder="Enter to search"
-          onChangeHandler={this.handleSearch}
-        />
-        <CardList monsters={filteredMonsters} />
+        {loading ? (
+          <h1 className="loader-text">Loading...</h1>
+        ) : (
+          <>
+            <SearchBox
+              className={"monster-search-box"}
+              searchField={searchField}
+              placeholder="Enter to search"
+              onChangeHandler={this.handleSearch}
+            />
+            <CardList monsters={filteredMonsters} />
+          </>
+        )}
       </div>
     );
   }

@@ -21,3 +21,10 @@ body {
   margin-top: 70px;
   margin-bottom: 50px;
 }
+.loader-text{
+  font-size: 40px;
+  font-weight: bold;
+  color:#fff;
+  margin-top: 70px;
+  margin-bottom: 50px;
+}
